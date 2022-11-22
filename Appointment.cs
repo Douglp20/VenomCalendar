@@ -112,7 +112,7 @@ namespace Calendar
             }
         }
 
-        private Color textColor = Color.Black;
+        private Color textColor = Color.White;
 
         public Color TextColor
         {
