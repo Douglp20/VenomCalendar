@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Calendar
 {
@@ -102,14 +100,13 @@ namespace Calendar
             }
         }
 
-        public abstract void DrawHourLabel(Graphics g, Rectangle rect, int hour);
+        public abstract void DrawHourLabel (Graphics g, Rectangle rect, int hour);
 
-        public abstract void DrawDayHeader(Graphics g, Rectangle rect, DateTime date);
+        public abstract void DrawDayHeader (Graphics g, Rectangle rect, DateTime date);
 
-        public abstract void DrawDayBackground(Graphics g, Rectangle rect);
+        public abstract void DrawDayBackground (Graphics g, Rectangle rect);
 
-        public virtual void DrawHourRange(Graphics g, Rectangle rect, bool drawBorder, bool hilight)
-        {
+        public virtual void DrawHourRange (Graphics g, Rectangle rect, bool drawBorder, bool hilight) {
             using (SolidBrush brush = new SolidBrush(hilight ? this.SelectionColor : this.WorkingHourColor))
             {
                 g.FillRectangle(brush, rect);
@@ -119,8 +116,7 @@ namespace Calendar
                 g.DrawRectangle(SystemPens.WindowFrame, rect);
         }
 
-        public virtual void DrawDayGripper(Graphics g, Rectangle rect, int gripWidth)
-        {
+        public virtual void DrawDayGripper (Graphics g, Rectangle rect, int gripWidth) {
             using (Brush m_Brush = new SolidBrush(Color.White))
                 g.FillRectangle(m_Brush, rect.Left, rect.Top - 1, gripWidth, rect.Height);
 
@@ -128,25 +124,23 @@ namespace Calendar
                 g.DrawRectangle(m_Pen, rect.Left, rect.Top - 1, gripWidth, rect.Height);
         }
 
-        public abstract void DrawAppointment(Graphics g, Rectangle rect, Appointment appointment, bool isSelected, int gripWidth);
+        public abstract void DrawAppointment (Graphics g, Rectangle rect, Appointment appointment, bool isSelected, int gripWidth);
 
-        public void DrawAllDayBackground(Graphics g, Rectangle rect)
-        {
+        public void DrawAllDayBackground (Graphics g, Rectangle rect) {
             using (Brush brush = new SolidBrush(InterpolateColors(this.BackColor, Color.Black, 0.5f)))
                 g.FillRectangle(brush, rect);
         }
 
-        public static Color InterpolateColors(Color color1, Color color2, float percentage)
-        {
-            int num1 = ((int)color1.R);
-            int num2 = ((int)color1.G);
-            int num3 = ((int)color1.B);
-            int num4 = ((int)color2.R);
-            int num5 = ((int)color2.G);
-            int num6 = ((int)color2.B);
-            byte num7 = Convert.ToByte(((float)(((float)num1) + (((float)(num4 - num1)) * percentage))));
-            byte num8 = Convert.ToByte(((float)(((float)num2) + (((float)(num5 - num2)) * percentage))));
-            byte num9 = Convert.ToByte(((float)(((float)num3) + (((float)(num6 - num3)) * percentage))));
+        public static Color InterpolateColors (Color color1, Color color2, float percentage) {
+            int num1 = ( (int)color1.R );
+            int num2 = ( (int)color1.G );
+            int num3 = ( (int)color1.B );
+            int num4 = ( (int)color2.R );
+            int num5 = ( (int)color2.G );
+            int num6 = ( (int)color2.B );
+            byte num7 = Convert.ToByte(( (float)( ( (float)num1 ) + ( ( (float)( num4 - num1 ) ) * percentage ) ) ));
+            byte num8 = Convert.ToByte(( (float)( ( (float)num2 ) + ( ( (float)( num5 - num2 ) ) * percentage ) ) ));
+            byte num9 = Convert.ToByte(( (float)( ( (float)num3 ) + ( ( (float)( num6 - num3 ) ) * percentage ) ) ));
             return Color.FromArgb(num7, num8, num9);
         }
     }

@@ -1,16 +1,13 @@
 /* Developed by Ertan Tike (ertan.tike@moreum.com) */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 
 namespace Calendar
 {
     public class Appointment
     {
-        public Appointment()
-        {
+        public Appointment () {
             color = Color.White;
             m_BorderColor = Color.Blue;
             m_Title = "New Appointment";
@@ -33,8 +30,7 @@ namespace Calendar
 
             }
         }
-        protected virtual void OnStartDateChanged()
-        {
+        protected virtual void OnStartDateChanged () {
         }
 
         private DateTime m_EndDate;
@@ -55,30 +51,53 @@ namespace Calendar
         private string m_SubContractor;
         public string SubContractor
         {
-            get  {return m_SubContractor;}
-            set { m_SubContractor = value;}
+            get
+            {
+                return m_SubContractor;
+            }
+            set
+            {
+                m_SubContractor = value;
+            }
         }
-         private string m_PostCode;
+        private string m_PostCode;
         public string PostCode
         {
-            get  {return m_PostCode; }
-            set { m_PostCode = value;}
+            get
+            {
+                return m_PostCode;
+            }
+            set
+            {
+                m_PostCode = value;
+            }
         }
         private string m_Priority;
         public string Priority
         {
-            get { return m_Priority; }
-            set { m_Priority = value; }
+            get
+            {
+                return m_Priority;
+            }
+            set
+            {
+                m_Priority = value;
+            }
         }
         private string m_JobNo;
         public string JobNo
         {
-            get { return m_JobNo; }
-            set { m_JobNo = value; }
+            get
+            {
+                return m_JobNo;
+            }
+            set
+            {
+                m_JobNo = value;
+            }
         }
 
-        protected virtual void OnEndDateChanged()
-        {
+        protected virtual void OnEndDateChanged () {
         }
 
         private bool m_Locked = false;
@@ -86,7 +105,10 @@ namespace Calendar
         [System.ComponentModel.DefaultValue(false)]
         public bool Locked
         {
-            get { return m_Locked; }
+            get
+            {
+                return m_Locked;
+            }
             set
             {
                 m_Locked = value;
@@ -94,8 +116,7 @@ namespace Calendar
             }
         }
 
-        protected virtual void OnLockedChanged()
-        {
+        protected virtual void OnLockedChanged () {
         }
 
         private Color color = Color.White;
@@ -116,8 +137,14 @@ namespace Calendar
 
         public Color TextColor
         {
-            get { return textColor; }
-            set { textColor = value; }
+            get
+            {
+                return textColor;
+            }
+            set
+            {
+                textColor = value;
+            }
         }
 
         private int m_ID = 0;
@@ -134,7 +161,7 @@ namespace Calendar
             }
         }
         private int m_OrderID = 0;
-      
+
         public int OrderID
         {
             get
@@ -175,8 +202,7 @@ namespace Calendar
                 OnTitleChanged();
             }
         }
-        protected virtual void OnTitleChanged()
-        {
+        protected virtual void OnTitleChanged () {
         }
 
         internal int m_ConflictCount;

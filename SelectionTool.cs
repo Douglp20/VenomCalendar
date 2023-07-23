@@ -1,8 +1,6 @@
 /* Developed by Ertan Tike (ertan.tike@moreum.com) */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 
 namespace Calendar
@@ -28,17 +26,15 @@ namespace Calendar
         private Mode mode;
         private TimeSpan delta;
 
-        public void Reset()
-        {
+        public void Reset () {
             length = TimeSpan.Zero;
             delta = TimeSpan.Zero;
         }
 
-        public void MouseMove(System.Windows.Forms.MouseEventArgs e)
-        {
+        public void MouseMove (System.Windows.Forms.MouseEventArgs e) {
             Appointment selection = dayView.SelectedAppointment;
 
-            if ((selection != null) && (!selection.Locked))
+            if (( selection != null ) && ( !selection.Locked ))
             {
                 switch (e.Button)
                 {
@@ -125,8 +121,7 @@ namespace Calendar
             }
         }
 
-        private Mode GetMode(System.Windows.Forms.MouseEventArgs e)
-        {
+        private Mode GetMode (System.Windows.Forms.MouseEventArgs e) {
             if (dayView.SelectedAppointment == null)
                 return Mode.None;
 
@@ -152,8 +147,7 @@ namespace Calendar
             return Mode.None;
         }
 
-        public void MouseUp(System.Windows.Forms.MouseEventArgs e)
-        {
+        public void MouseUp (System.Windows.Forms.MouseEventArgs e) {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 if (Complete != null)
@@ -167,8 +161,7 @@ namespace Calendar
             delta = TimeSpan.Zero;
         }
 
-        public void MouseDown(System.Windows.Forms.MouseEventArgs e)
-        {
+        public void MouseDown (System.Windows.Forms.MouseEventArgs e) {
             if (dayView.SelectedAppointmentIsNew)
             {
                 dayView.RaiseNewAppointment();

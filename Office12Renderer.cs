@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
@@ -72,8 +70,7 @@ namespace Calendar
             }
         }
 
-        public override void DrawHourLabel(System.Drawing.Graphics g, System.Drawing.Rectangle rect, int hour)
-        {
+        public override void DrawHourLabel (System.Drawing.Graphics g, System.Drawing.Rectangle rect, int hour) {
             Color color = Color.FromArgb(101, 147, 207);
 
             using (Pen pen = new Pen(color))
@@ -89,8 +86,7 @@ namespace Calendar
             }
         }
 
-        public override void DrawDayHeader(System.Drawing.Graphics g, System.Drawing.Rectangle rect, DateTime date)
-        {
+        public override void DrawDayHeader (System.Drawing.Graphics g, System.Drawing.Rectangle rect, DateTime date) {
 
             StringFormat m_Format = new StringFormat();
             m_Format.Alignment = StringAlignment.Center;
@@ -111,8 +107,8 @@ namespace Calendar
             using (Pen aPen = new Pen(Color.FromArgb(141, 174, 217)))
                 g.DrawRectangle(aPen, rect);
 
-            Rectangle topPart = new Rectangle(rect.Left + 1, rect.Top + 1, rect.Width - 2, (int)(rect.Height / 2) - 1);
-            Rectangle lowPart = new Rectangle(rect.Left + 1, rect.Top + (int)(rect.Height / 2) + 1, rect.Width - 1, (int)(rect.Height / 2) - 1);
+            Rectangle topPart = new Rectangle(rect.Left + 1, rect.Top + 1, rect.Width - 2, (int)( rect.Height / 2 ) - 1);
+            Rectangle lowPart = new Rectangle(rect.Left + 1, rect.Top + (int)( rect.Height / 2 ) + 1, rect.Width - 1, (int)( rect.Height / 2 ) - 1);
 
             using (LinearGradientBrush aGB = new LinearGradientBrush(topPart, Color.FromArgb(228, 236, 246), Color.FromArgb(214, 226, 241), LinearGradientMode.Vertical))
                 g.FillRectangle(aGB, topPart);
@@ -122,7 +118,7 @@ namespace Calendar
 
             if (date.Date.Equals(DateTime.Now.Date))
             {
-                topPart.Inflate((int)(-topPart.Width / 4 + 1), 1); //top left orange area
+                topPart.Inflate((int)( -topPart.Width / 4 + 1 ), 1); //top left orange area
                 topPart.Offset(rect.Left - topPart.Left + 1, 1);
                 topPart.Inflate(1, 0);
                 using (LinearGradientBrush aGB = new LinearGradientBrush(topPart, Color.FromArgb(247, 207, 114), Color.FromArgb(251, 230, 148), LinearGradientMode.Horizontal))
@@ -172,13 +168,11 @@ namespace Calendar
                 g.DrawString(date.ToString(" d"), fntDayDate, SystemBrushes.WindowText, rect, m_Formatdd);
         }
 
-        public override void DrawDayBackground(System.Drawing.Graphics g, System.Drawing.Rectangle rect)
-        {
+        public override void DrawDayBackground (System.Drawing.Graphics g, System.Drawing.Rectangle rect) {
 
         }
 
-        public override void DrawAppointment(System.Drawing.Graphics g, System.Drawing.Rectangle rect, Appointment appointment, bool isSelected, int gripWidth)
-        {
+        public override void DrawAppointment (System.Drawing.Graphics g, System.Drawing.Rectangle rect, Appointment appointment, bool isSelected, int gripWidth) {
             StringFormat m_Format = new StringFormat();
             m_Format.Alignment = StringAlignment.Near;
             m_Format.LineAlignment = StringAlignment.Near;
@@ -186,7 +180,7 @@ namespace Calendar
             Color start = InterpolateColors(appointment.Color, Color.White, 0.4f);
             Color end = InterpolateColors(appointment.Color, Color.FromArgb(191, 210, 234), 0.7f);
 
-            if ((appointment.Locked))
+            if (( appointment.Locked ))
             {
                 // Draw back
                 using (Brush m_Brush = new System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.LargeConfetti, Color.White, appointment.Color))

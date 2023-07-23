@@ -1,8 +1,6 @@
 /* Developed by Ertan Tike (ertan.tike@moreum.com) */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Calendar
@@ -12,13 +10,11 @@ namespace Calendar
         DateTime m_SelectionStart;
         bool m_SelectionStarted;
 
-        public void Reset()
-        {
+        public void Reset () {
             m_SelectionStarted = false;
         }
 
-        public void MouseMove(MouseEventArgs e)
-        {
+        public void MouseMove (MouseEventArgs e) {
             if (e.Button == MouseButtons.Left)
             {
                 if (m_SelectionStarted)
@@ -28,15 +24,15 @@ namespace Calendar
 
                     //if (m_Time.Day == m_SelectionStart.Day)
                     //{
-                        if (m_Time < m_SelectionStart)
-                        {
-                            m_DayView.SelectionStart = m_Time;
-                            m_DayView.SelectionEnd = m_SelectionStart;
-                        }
-                        else
-                        {
-                            m_DayView.SelectionEnd = m_Time;
-                        }
+                    if (m_Time < m_SelectionStart)
+                    {
+                        m_DayView.SelectionStart = m_Time;
+                        m_DayView.SelectionEnd = m_SelectionStart;
+                    }
+                    else
+                    {
+                        m_DayView.SelectionEnd = m_Time;
+                    }
                     //}
 
                     m_DayView.Invalidate();
@@ -44,8 +40,7 @@ namespace Calendar
             }
         }
 
-        public void MouseUp(MouseEventArgs e)
-        {
+        public void MouseUp (MouseEventArgs e) {
             if (e.Button == MouseButtons.Left)
             {
                 m_DayView.Capture = false;
@@ -58,8 +53,7 @@ namespace Calendar
             }
         }
 
-        public void MouseDown(MouseEventArgs e)
-        {
+        public void MouseDown (MouseEventArgs e) {
             if (e.Button == MouseButtons.Left)
             {
                 m_SelectionStart = m_DayView.GetTimeAt(e.X, e.Y);
@@ -78,8 +72,14 @@ namespace Calendar
 
         public DayView DayView
         {
-            get { return m_DayView; }
-            set { m_DayView = value; }
+            get
+            {
+                return m_DayView;
+            }
+            set
+            {
+                m_DayView = value;
+            }
         }
 
         public event EventHandler Complete;

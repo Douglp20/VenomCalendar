@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Calendar
 {
@@ -21,8 +19,7 @@ namespace Calendar
             }
         }
 
-        public override void DrawHourLabel(Graphics g, Rectangle rect, int hour)
-        {
+        public override void DrawHourLabel (Graphics g, Rectangle rect, int hour) {
             Color m_Color = ControlPaint.LightLight(SystemColors.WindowFrame);
             m_Color = ControlPaint.Light(m_Color);
 
@@ -36,8 +33,7 @@ namespace Calendar
             g.DrawString("00", MinuteFont, SystemBrushes.ControlText, rect);
         }
 
-        public override void DrawDayHeader(Graphics g, Rectangle rect, DateTime date)
-        {
+        public override void DrawDayHeader (Graphics g, Rectangle rect, DateTime date) {
             StringFormat m_Format = new StringFormat();
             m_Format.Alignment = StringAlignment.Center;
             m_Format.FormatFlags = StringFormatFlags.NoWrap;
@@ -55,19 +51,17 @@ namespace Calendar
                 );
         }
 
-        public override void DrawDayBackground(Graphics g, Rectangle rect)
-        {
+        public override void DrawDayBackground (Graphics g, Rectangle rect) {
             using (Brush m_Brush = new SolidBrush(this.HourColor))
                 g.FillRectangle(m_Brush, rect);
         }
 
-        public override void DrawAppointment(Graphics g, Rectangle rect, Appointment appointment, bool isSelected, int gripWidth)
-        {
+        public override void DrawAppointment (Graphics g, Rectangle rect, Appointment appointment, bool isSelected, int gripWidth) {
             StringFormat m_Format = new StringFormat();
             m_Format.Alignment = StringAlignment.Near;
             m_Format.LineAlignment = StringAlignment.Near;
 
-            if ((appointment.Locked) && isSelected)
+            if (( appointment.Locked ) && isSelected)
             {
                 // Draw back
                 using (Brush m_Brush = new System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.Wave, Color.LightGray, appointment.Color))

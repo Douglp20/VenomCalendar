@@ -2,9 +2,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Calendar
 {
@@ -37,8 +36,7 @@ namespace Calendar
 
         #region c.tor
 
-        public DayView()
-        {
+        public DayView () {
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
             SetStyle(ControlStyles.Selectable, true);
@@ -50,7 +48,7 @@ namespace Calendar
             scrollbar.Visible = allowScroll;
             scrollbar.Scroll += new ScrollEventHandler(scrollbar_Scroll);
             AdjustScrollbar();
-            scrollbar.Value = (startHour * 2 * halfHourHeight);
+            scrollbar.Value = ( startHour * 2 * halfHourHeight );
 
             this.Controls.Add(scrollbar);
 
@@ -58,7 +56,7 @@ namespace Calendar
             editbox.Multiline = true;
             editbox.Visible = false;
             editbox.BorderStyle = BorderStyle.None;
-            editbox.KeyUp += new KeyEventHandler(editbox_KeyUp);            
+            editbox.KeyUp += new KeyEventHandler(editbox_KeyUp);
             editbox.Margin = Padding.Empty;
 
             this.Controls.Add(editbox);
@@ -97,8 +95,7 @@ namespace Calendar
             }
         }
 
-        private void OnHalfHourHeightChanged()
-        {
+        private void OnHalfHourHeightChanged () {
 
             AdjustScrollbar();
             Invalidate();
@@ -121,8 +118,7 @@ namespace Calendar
             }
         }
 
-        private void OnRendererChanged()
-        {
+        private void OnRendererChanged () {
             this.Font = renderer.BaseFont;
             this.Invalidate();
         }
@@ -143,8 +139,7 @@ namespace Calendar
             }
         }
 
-        protected virtual void OnDaysToShowChanged()
-        {
+        protected virtual void OnDaysToShowChanged () {
             if (this.CurrentlyEditing)
                 FinishEditing(true);
 
@@ -177,8 +172,7 @@ namespace Calendar
             }
         }
 
-        protected virtual void OnStartDateChanged()
-        {
+        protected virtual void OnStartDateChanged () {
             startDate = startDate.Date;
 
             selectedAppointment = null;
@@ -204,9 +198,8 @@ namespace Calendar
             }
         }
 
-        protected virtual void OnStartHourChanged()
-        {
-            scrollbar.Value = (startHour * 2 * halfHourHeight);
+        protected virtual void OnStartHourChanged () {
+            scrollbar.Value = ( startHour * 2 * halfHourHeight );
 
             Invalidate();
         }
@@ -216,23 +209,38 @@ namespace Calendar
         [System.ComponentModel.Browsable(false)]
         public Appointment SelectedAppointment
         {
-            get { return selectedAppointment; }
+            get
+            {
+                return selectedAppointment;
+            }
         }
 
         private DateTime selectionStart;
 
         public DateTime SelectionStart
         {
-            get { return selectionStart; }
-            set { selectionStart = value; }
+            get
+            {
+                return selectionStart;
+            }
+            set
+            {
+                selectionStart = value;
+            }
         }
 
         private DateTime selectionEnd;
 
         public DateTime SelectionEnd
         {
-            get { return selectionEnd; }
-            set { selectionEnd = value; }
+            get
+            {
+                return selectionEnd;
+            }
+            set
+            {
+                selectionEnd = value;
+            }
         }
 
         private ITool activeTool;
@@ -240,8 +248,14 @@ namespace Calendar
         [System.ComponentModel.Browsable(false)]
         public ITool ActiveTool
         {
-            get { return activeTool; }
-            set { activeTool = value; }
+            get
+            {
+                return activeTool;
+            }
+            set
+            {
+                activeTool = value;
+            }
         }
 
         [System.ComponentModel.Browsable(false)]
@@ -306,7 +320,10 @@ namespace Calendar
         [System.ComponentModel.DefaultValue(30)]
         public int WorkingMinuteEnd
         {
-            get { return workingMinuteEnd; }
+            get
+            {
+                return workingMinuteEnd;
+            }
             set
             {
                 workingMinuteEnd = value;
@@ -314,8 +331,7 @@ namespace Calendar
             }
         }
 
-        private void UpdateWorkingHours()
-        {
+        private void UpdateWorkingHours () {
             workStart = new DateTime(1, 1, 1, workingHourStart, workingMinuteStart, 0);
             workEnd = new DateTime(1, 1, 1, workingHourEnd, workingMinuteEnd, 0);
 
@@ -399,11 +415,10 @@ namespace Calendar
             }
         }
         #region Event Handlers
-        
-    
 
-        void editbox_KeyUp(object sender, KeyEventArgs e)
-        {
+
+
+        void editbox_KeyUp (object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Escape)
             {
                 e.Handled = true;
@@ -416,16 +431,14 @@ namespace Calendar
             }
         }
 
-        void selectionTool_Complete(object sender, EventArgs e)
-        {
+        void selectionTool_Complete (object sender, EventArgs e) {
             if (selectedAppointment != null)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(EnterEditMode));
             }
         }
 
-        void scrollbar_Scroll(object sender, ScrollEventArgs e)
-        {
+        void scrollbar_Scroll (object sender, ScrollEventArgs e) {
             Invalidate();
 
             if (editbox.Visible)
@@ -433,27 +446,23 @@ namespace Calendar
                 editbox.Top += e.OldValue - e.NewValue;
         }
 
-        protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
-        {
+        protected override void SetBoundsCore (int x, int y, int width, int height, BoundsSpecified specified) {
             base.SetBoundsCore(x, y, width, height, specified);
             AdjustScrollbar();
         }
 
-        private void AdjustScrollbar()
-        {
-            scrollbar.Maximum = (2 * halfHourHeight * 25) - this.Height + this.HeaderHeight;
+        private void AdjustScrollbar () {
+            scrollbar.Maximum = ( 2 * halfHourHeight * 25 ) - this.Height + this.HeaderHeight;
             scrollbar.Minimum = 0;
         }
 
-        protected override void OnPaintBackground(PaintEventArgs pevent)
-        {
+        protected override void OnPaintBackground (PaintEventArgs pevent) {
             // Flicker free
         }
 
 
 
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
+        protected override void OnMouseDown (MouseEventArgs e) {
             // Capture focus
             this.Focus();
 
@@ -496,7 +505,7 @@ namespace Calendar
                 activeTool.MouseDown(e);
             }
 
-            if ((activeTool != newTool) && (newTool != null))
+            if (( activeTool != newTool ) && ( newTool != null ))
             {
                 newTool.Reset();
                 newTool.MouseDown(e);
@@ -507,16 +516,14 @@ namespace Calendar
             base.OnMouseDown(e);
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
+        protected override void OnMouseMove (MouseEventArgs e) {
             if (activeTool != null)
                 activeTool.MouseMove(e);
 
             base.OnMouseMove(e);
         }
 
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
+        protected override void OnMouseUp (MouseEventArgs e) {
             if (activeTool != null)
                 activeTool.MouseUp(e);
 
@@ -525,8 +532,7 @@ namespace Calendar
 
         System.Collections.Hashtable cachedAppointments = new System.Collections.Hashtable();
 
-        protected virtual void OnResolveAppointments(ResolveAppointmentsEventArgs args)
-        {
+        protected virtual void OnResolveAppointments (ResolveAppointmentsEventArgs args) {
             System.Diagnostics.Debug.WriteLine("Resolve app");
 
             if (ResolveAppointments != null)
@@ -537,9 +543,9 @@ namespace Calendar
             // cache resolved appointments in hashtable by days.
             cachedAppointments.Clear();
 
-            if ((selectedAppointmentIsNew) && (selectedAppointment != null))
+            if (( selectedAppointmentIsNew ) && ( selectedAppointment != null ))
             {
-                if ((selectedAppointment.StartDate > args.StartDate) && (selectedAppointment.StartDate < args.EndDate))
+                if (( selectedAppointment.StartDate > args.StartDate ) && ( selectedAppointment.StartDate < args.EndDate ))
                 {
                     args.Appointments.Add(selectedAppointment);
                 }
@@ -576,23 +582,20 @@ namespace Calendar
             }
         }
 
-        internal void RaiseSelectionChanged(EventArgs e)
-        {
+        internal void RaiseSelectionChanged (EventArgs e) {
             if (SelectionChanged != null)
                 SelectionChanged(this, e);
         }
 
-        internal void RaiseAppointmentMove(AppointmentEventArgs e)
-        {
+        internal void RaiseAppointmentMove (AppointmentEventArgs e) {
             if (AppoinmentMove != null)
                 AppoinmentMove(this, e);
         }
 
-        protected override void OnKeyPress(KeyPressEventArgs e)
-        {
-            if ((allowNew) && char.IsLetterOrDigit(e.KeyChar))
+        protected override void OnKeyPress (KeyPressEventArgs e) {
+            if (( allowNew ) && char.IsLetterOrDigit(e.KeyChar))
             {
-                if ((this.Selection == SelectionType.DateRange))
+                if (( this.Selection == SelectionType.DateRange ))
                 {
                     if (!selectedAppointmentIsNew)
                         EnterNewAppointmentMode(e.KeyChar);
@@ -600,8 +603,7 @@ namespace Calendar
             }
         }
 
-        private void EnterNewAppointmentMode(char key)
-        {
+        private void EnterNewAppointmentMode (char key) {
             Appointment appointment = new Appointment();
             appointment.StartDate = selectionStart;
             appointment.EndDate = selectionEnd;
@@ -617,10 +619,9 @@ namespace Calendar
             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(EnterEditMode));
         }
 
-        private delegate void StartEditModeDelegate(object state);
+        private delegate void StartEditModeDelegate (object state);
 
-        private void EnterEditMode(object state)
-        {
+        private void EnterEditMode (object state) {
             if (!allowInplaceEditing)
                 return;
 
@@ -639,8 +640,7 @@ namespace Calendar
             }
         }
 
-        internal void RaiseNewAppointment()
-        {
+        internal void RaiseNewAppointment () {
             NewAppointmentEventArgs args = new NewAppointmentEventArgs(selectedAppointment.Title, selectedAppointment.StartDate, selectedAppointment.EndDate);
 
             if (NewAppointment != null)
@@ -658,8 +658,7 @@ namespace Calendar
 
         #region Public Methods
 
-        public void StartEditing()
-        {
+        public void StartEditing () {
             if (!selectedAppointment.Locked && appointmentViews.ContainsKey(selectedAppointment))
             {
                 Rectangle editBounds = appointmentViews[selectedAppointment].Rectangle;
@@ -678,8 +677,7 @@ namespace Calendar
             }
         }
 
-        public void FinishEditing(bool cancel)
-        {
+        public void FinishEditing (bool cancel) {
             editbox.Visible = false;
 
             if (!cancel)
@@ -700,11 +698,10 @@ namespace Calendar
             this.Focus();
         }
 
-        public DateTime GetTimeAt(int x, int y)
-        {
-            int dayWidth = (this.Width - (scrollbar.Width + hourLabelWidth)) / daysToShow;
+        public DateTime GetTimeAt (int x, int y) {
+            int dayWidth = ( this.Width - ( scrollbar.Width + hourLabelWidth ) ) / daysToShow;
 
-            int hour = (y - this.HeaderHeight + scrollbar.Value) / halfHourHeight;
+            int hour = ( y - this.HeaderHeight + scrollbar.Value ) / halfHourHeight;
             x -= hourLabelWidth;
 
             DateTime date = startDate;
@@ -712,14 +709,13 @@ namespace Calendar
             date = date.Date;
             date = date.AddDays(x / dayWidth);
 
-            if ((hour > 0) && (hour < 24 * 2))
-                date = date.AddMinutes((hour * 30));
+            if (( hour > 0 ) && ( hour < 24 * 2 ))
+                date = date.AddMinutes(( hour * 30 ));
 
             return date;
         }
 
-        public Appointment GetAppointmentAt(int x, int y)
-        {
+        public Appointment GetAppointmentAt (int x, int y) {
             if (y < this.HeaderHeight)
                 return null;
 
@@ -734,8 +730,7 @@ namespace Calendar
 
         #region Drawing Methods
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
+        protected override void OnPaint (PaintEventArgs e) {
             // resolve appointments on visible date range.
             ResolveAppointmentsEventArgs args = new ResolveAppointmentsEventArgs(this.StartDate, this.StartDate.AddDays(daysToShow));
             OnResolveAppointments(args);
@@ -775,15 +770,14 @@ namespace Calendar
 
         }
 
-        private void DrawHourLabels(PaintEventArgs e, Rectangle rect)
-        {
+        private void DrawHourLabels (PaintEventArgs e, Rectangle rect) {
             e.Graphics.SetClip(rect);
 
             for (int m_Hour = 0; m_Hour < 24; m_Hour++)
             {
                 Rectangle hourRectangle = rect;
 
-                hourRectangle.Y = rect.Y + (m_Hour * 2 * halfHourHeight) - scrollbar.Value;
+                hourRectangle.Y = rect.Y + ( m_Hour * 2 * halfHourHeight ) - scrollbar.Value;
                 hourRectangle.X += hourLabelIndent;
                 hourRectangle.Width = hourLabelWidth;
 
@@ -794,8 +788,7 @@ namespace Calendar
             e.Graphics.ResetClip();
         }
 
-        private void DrawDayHeaders(PaintEventArgs e, Rectangle rect)
-        {
+        private void DrawDayHeaders (PaintEventArgs e, Rectangle rect) {
             int dayWidth = rect.Width / daysToShow;
 
             // one day header rectangle
@@ -811,15 +804,14 @@ namespace Calendar
             }
         }
 
-        private Rectangle GetHourRangeRectangle(DateTime start, DateTime end, Rectangle baseRectangle)
-        {
+        private Rectangle GetHourRangeRectangle (DateTime start, DateTime end, Rectangle baseRectangle) {
             Rectangle rect = baseRectangle;
 
             int startY;
             int endY;
 
-            startY = (start.Hour * halfHourHeight * 2) + ((start.Minute * halfHourHeight) / 30);
-            endY = (end.Hour * halfHourHeight * 2) + ((end.Minute * halfHourHeight) / 30);
+            startY = ( start.Hour * halfHourHeight * 2 ) + ( ( start.Minute * halfHourHeight ) / 30 );
+            endY = ( end.Hour * halfHourHeight * 2 ) + ( ( end.Minute * halfHourHeight ) / 30 );
 
             rect.Y = startY - scrollbar.Value + this.HeaderHeight;
 
@@ -828,8 +820,7 @@ namespace Calendar
             return rect;
         }
 
-        private void DrawDay(PaintEventArgs e, Rectangle rect, DateTime time)
-        {
+        private void DrawDay (PaintEventArgs e, Rectangle rect, DateTime time) {
             //renderer.DrawDayBackground(e.Graphics, rect);
 
             Rectangle workingHoursRectangle = GetHourRangeRectangle(workStart, workEnd, rect);
@@ -837,10 +828,10 @@ namespace Calendar
             if (workingHoursRectangle.Y < this.HeaderHeight)
                 workingHoursRectangle.Y = this.HeaderHeight;
 
-            if (!((time.DayOfWeek == DayOfWeek.Saturday) || (time.DayOfWeek == DayOfWeek.Sunday))) //weekends off -> no working hours
+            if (!( ( time.DayOfWeek == DayOfWeek.Saturday ) || ( time.DayOfWeek == DayOfWeek.Sunday ) )) //weekends off -> no working hours
                 renderer.DrawHourRange(e.Graphics, workingHoursRectangle, false, false);
 
-            if ((selection == SelectionType.DateRange) && (time.Day == selectionStart.Day))
+            if (( selection == SelectionType.DateRange ) && ( time.Day == selectionStart.Day ))
             {
                 Rectangle selectionRectangle = GetHourRangeRectangle(selectionStart, selectionEnd, rect);
 
@@ -851,9 +842,9 @@ namespace Calendar
 
             for (int hour = 0; hour < 24 * 2; hour++)
             {
-                int y = rect.Top + (hour * halfHourHeight) - scrollbar.Value;
+                int y = rect.Top + ( hour * halfHourHeight ) - scrollbar.Value;
 
-                using (Pen pen = new Pen(((hour % 2) == 0 ? renderer.HourSeperatorColor : renderer.HalfHourSeperatorColor)))
+                using (Pen pen = new Pen(( ( hour % 2 ) == 0 ? renderer.HourSeperatorColor : renderer.HalfHourSeperatorColor )))
                     e.Graphics.DrawLine(pen, rect.Left, y, rect.Right, y);
 
                 if (y > rect.Bottom)
@@ -869,8 +860,7 @@ namespace Calendar
 
         internal Dictionary<Appointment, AppointmentView> appointmentViews = new Dictionary<Appointment, AppointmentView>();
 
-        private void DrawAppointments(PaintEventArgs e, Rectangle rect, DateTime time)
-        {
+        private void DrawAppointments (PaintEventArgs e, Rectangle rect, DateTime time) {
             DateTime timeStart = time.Date;
             DateTime timeEnd = timeStart.AddHours(24);
             timeEnd = timeEnd.AddSeconds(-1);
@@ -886,7 +876,7 @@ namespace Calendar
                 {
                     HalfHourLayout hourLayout = layout[halfHour];
 
-                    if ((hourLayout != null) && (hourLayout.Count > 0))
+                    if (( hourLayout != null ) && ( hourLayout.Count > 0 ))
                     {
                         for (int appIndex = 0; appIndex < hourLayout.Count; appIndex++)
                         {
@@ -904,7 +894,7 @@ namespace Calendar
 
                                 foreach (Appointment app in hourLayout.Appointments)
                                 {
-                                    if ((app != null) && (appointmentViews.ContainsKey(app)))
+                                    if (( app != null ) && ( appointmentViews.ContainsKey(app) ))
                                     {
                                         view = appointmentViews[app];
 
@@ -913,7 +903,7 @@ namespace Calendar
                                     }
                                 }
 
-                                if ((lastX + (appointmentWidth * 2)) > (rect.X + rect.Width))
+                                if (( lastX + ( appointmentWidth * 2 ) ) > ( rect.X + rect.Width ))
                                     lastX = 0;
 
                                 appRect.Width = appointmentWidth - 5;
@@ -943,8 +933,7 @@ namespace Calendar
             }
         }
 
-        private HalfHourLayout[] GetMaxParalelAppointments(List<Appointment> appointments)
-        {
+        private HalfHourLayout[] GetMaxParalelAppointments (List<Appointment> appointments) {
             HalfHourLayout[] appLayouts = new HalfHourLayout[24 * 2];
 
             foreach (Appointment appointment in appointments)
@@ -954,8 +943,8 @@ namespace Calendar
 
             foreach (Appointment appointment in appointments)
             {
-                int firstHalfHour = appointment.StartDate.Hour * 2 + (appointment.StartDate.Minute / 30);
-                int lastHalfHour = appointment.EndDate.Hour * 2 + (appointment.EndDate.Minute / 30);
+                int firstHalfHour = appointment.StartDate.Hour * 2 + ( appointment.StartDate.Minute / 30 );
+                int lastHalfHour = appointment.EndDate.Hour * 2 + ( appointment.EndDate.Minute / 30 );
 
                 for (int halfHour = firstHalfHour; halfHour < lastHalfHour; halfHour++)
                 {
@@ -984,11 +973,10 @@ namespace Calendar
             return appLayouts;
         }
 
-        private void DrawDays(PaintEventArgs e, Rectangle rect)
-        {
+        private void DrawDays (PaintEventArgs e, Rectangle rect) {
             int dayWidth = rect.Width / daysToShow;
 
-			/* ALL DAY EVENTS IS NOT COMPLETE
+            /* ALL DAY EVENTS IS NOT COMPLETE
 			
             AppointmentList longAppointments = (AppointmentList)cachedAppointments[-1];
 
@@ -1064,8 +1052,7 @@ namespace Calendar
 
         #endregion
 
-        private void InitializeComponent()
-        {
+        private void InitializeComponent () {
             this.SuspendLayout();
             this.ResumeLayout(false);
 

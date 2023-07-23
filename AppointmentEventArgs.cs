@@ -1,15 +1,12 @@
 /* Developed by Ertan Tike (ertan.tike@moreum.com) */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Calendar
 {
     public class AppointmentEventArgs : EventArgs
     {
-        public AppointmentEventArgs( Appointment appointment )
-        {
+        public AppointmentEventArgs (Appointment appointment) {
             m_Appointment = appointment;
         }
 
@@ -17,7 +14,10 @@ namespace Calendar
 
         public Appointment Appointment
         {
-            get { return m_Appointment; }
+            get
+            {
+                return m_Appointment;
+            }
         }
 
     }
